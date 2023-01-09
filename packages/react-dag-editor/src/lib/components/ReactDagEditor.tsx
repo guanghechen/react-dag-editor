@@ -84,9 +84,17 @@ export const ReactDagEditor: React.FunctionComponent<IReactDagEditorProps> = (
     };
   }, [graphController]);
 
+  const slotsContext = React.useMemo<ISlotsContext>(
+    () => ({
+      renderNodeFrame: props.renderNodeFrame,
+      renderNodeResizeHandler: props.renderNodeResizeHandler,
+    }),
+    [props.renderNodeFrame, props.renderNodeResizeHandler]
+  );
+
   return (
     <ErrorBoundary renderOnError={handleError}>
-      <SlotsContext.Provider value={props}>
+      <SlotsContext.Provider value={slotsContext}>
         <GraphStateStore
           state={state}
           dispatch={dispatch}
